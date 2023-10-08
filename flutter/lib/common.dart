@@ -2603,4 +2603,3 @@ sessionRefreshVideo(SessionID sessionId, PeerInfo pi) async {
 bool isChooseDisplayToOpenInNewWindow(PeerInfo pi, SessionID sessionId) =>
     pi.isSupportMultiDisplay &&
     bind.sessionGetDisplaysAsIndividualWindows(sessionId: sessionId) == 'Y';
-
