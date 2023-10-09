@@ -555,6 +555,7 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("Check for software update on startup", "Periksa pembaruan aplikasi saat sistem dinyalakan."),
         ("upgrade_rustdesk_server_pro_to_{}_tip", "Silahkan perbarui RustDesk Server Pro ke versi {} atau yang lebih baru!"),
         ("pull_group_failed_tip", "Gagal memperbarui grup"),
+<<<<<<< HEAD
         ("Filter by intersection", "Filter berdasarkan persilangan"),
         ("Remove wallpaper during incoming sessions", "Hilangkan latar dinding ketika ada sesi yang masuk"),
         ("Test", "Tes"),
@@ -564,5 +565,13 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("elevated_switch_display_msg", "Pindah ke tampilan utama, pada mode elevasi, pengggunaan lebih dari satu layar tidak diizinkan"),
         ("Open in new window", "Buka di jendela baru"),
         ("Show displays as individual windows", "Tampilkan layar sebagai jendela terpisah"),
+=======
+        ("switch_display_elevated_connections_tip", ""),
+        ("display_is_plugged_out_msg", ""),
+        ("No displays", ""),
+        ("elevated_switch_display_msg", ""),
+        ("Open in new window", ""),
+        ("Show displays as individual windows", ""),
+>>>>>>> 4d25e3ea (multi flutter ui sessions, refact 'Show displays as individual windows')
     ].iter().cloned().collect();
 }
