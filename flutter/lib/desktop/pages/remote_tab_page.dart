@@ -59,6 +59,8 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
     final tabWindowId = params['tab_window_id'];
     final display = params['display'];
     final displays = params['displays'];
+    final screenRect = parseScreenRect(params);
+    tryMoveToScreenAndSetFullscreen(screenRect);
     if (peerId != null) {
       ConnectionTypeState.init(peerId!);
       tabController.onSelected = (id) {
@@ -95,6 +97,18 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
     }
   }
 
+  parseScreenRect(Map<String, dynamic> params) {
+    Rect? screenRect;
+    if (params['screen_rect'] != null) {
+      double l = params['screen_rect']['l'];
+      double t = params['screen_rect']['t'];
+      double r = params['screen_rect']['r'];
+      double b = params['screen_rect']['b'];
+      screenRect = Rect.fromLTRB(l, t, r, b);
+    }
+    return screenRect;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -115,7 +129,9 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
         final tabWindowId = args['tab_window_id'];
         final display = args['display'];
         final displays = args['displays'];
+        final screenRect = parseScreenRect(args);
         windowOnTop(windowId());
+        tryMoveToScreenAndSetFullscreen(screenRect);
         if (tabController.length == 0) {
           if (Platform.isMacOS && stateGlobal.closeOnFullscreen) {
             stateGlobal.setFullscreen(true);
@@ -451,6 +467,7 @@ class _ConnectionTabPageState extends State<ConnectionTabPage> {
           c++;
         }
       }
+
       loopCloseWindow();
     }
     ConnectionTypeState.delete(id);

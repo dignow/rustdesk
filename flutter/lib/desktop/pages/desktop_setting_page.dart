@@ -1321,6 +1321,8 @@ class _DisplayState extends State<_Display> {
       otherRow('Reverse mouse wheel', 'reverse_mouse_wheel'),
       otherRow('Show displays as individual windows',
           kKeyShowDisplaysAsIndividualWindows),
+      otherRow('Use all my displays when connecting',
+          kKeyUseAllMyMonitorsWhenConnecting),
     ]);
   }
 }

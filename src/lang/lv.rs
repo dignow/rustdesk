@@ -555,7 +555,6 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("Check for software update on startup", "Startējot pārbaudīt, vai nav programmatūras atjauninājumu"),
         ("upgrade_rustdesk_server_pro_to_{}_tip", "Lūdzu, jauniniet RustDesk Server Pro uz versiju {} vai jaunāku!"),
         ("pull_group_failed_tip", "Neizdevās atsvaidzināt grupu"),
-<<<<<<< HEAD
         ("Filter by intersection", "Filtrēt pēc krustpunkta"),
         ("Remove wallpaper during incoming sessions", "Noņemt fona tapeti ienākošo sesiju laikā"),
         ("Test", "Pārbaudīt"),
@@ -565,13 +564,6 @@ pub static ref T: std::collections::HashMap<&'static str, &'static str> =
         ("elevated_switch_display_msg", "Pārslēdzieties uz primāro displeju, jo paaugstinātajā režīmā netiek atbalstīti vairāki displeji."),
         ("Open in new window", "Atvērt jaunā logā"),
         ("Show displays as individual windows", "Rādīt displejus kā atsevišķus logus"),
-=======
-        ("switch_display_elevated_connections_tip", ""),
-        ("display_is_plugged_out_msg", ""),
-        ("No displays", ""),
-        ("elevated_switch_display_msg", ""),
-        ("Open in new window", ""),
-        ("Show displays as individual windows", ""),
->>>>>>> 4d25e3ea (multi flutter ui sessions, refact 'Show displays as individual windows')
+        ("Use all my displays when connecting", ""),
     ].iter().cloned().collect();
 }
