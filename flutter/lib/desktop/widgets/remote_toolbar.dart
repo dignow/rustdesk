@@ -9,6 +9,7 @@ import 'package:flutter_hbb/models/chat_model.dart';
 import 'package:flutter_hbb/models/state_model.dart';
 import 'package:flutter_hbb/models/desktop_render_texture.dart';
 import 'package:flutter_hbb/consts.dart';
+import 'package:flutter_hbb/window_info.dart';
 import 'package:flutter_hbb/utils/multi_window_manager.dart';
 import 'package:flutter_hbb/plugin/widgets/desc_ui.dart';
 import 'package:flutter_hbb/plugin/common.dart';
@@ -349,8 +350,6 @@ class _RemoteToolbarState extends State<RemoteToolbar> {
   final _fractionX = 0.5.obs;
   final _dragging = false.obs;
 
-  int get windowId => stateGlobal.windowId;
-
   void _setFullscreen(bool v) {
     stateGlobal.setFullscreen(v);
     // stateGlobal.fullscreen is RxBool now, no need to call setState.
@@ -366,7 +365,7 @@ class _RemoteToolbarState extends State<RemoteToolbar> {
   triggerAutoHide() => _debouncerHide.value = _debouncerHide.value + 1;
 
   void _minimize() async =>
-      await WindowController.fromWindowId(windowId).minimize();
+      await WindowController.fromWindowId(kWindowId!).minimize();
 
   @override
   initState() {
@@ -798,7 +797,6 @@ class ScreenAdjustor {
   });
 
   bool get isFullscreen => stateGlobal.fullscreen.isTrue;
-  int get windowId => stateGlobal.windowId;
 
   adjustWindow(BuildContext context) {
     return futureBuilder(
@@ -823,7 +821,7 @@ class ScreenAdjustor {
     if (_screen != null) {
       cbExitFullscreen();
       double scale = _screen!.scaleFactor;
-      final wndRect = await WindowController.fromWindowId(windowId).getFrame();
+      final wndRect = await WindowController.fromWindowId(kWindowId!).getFrame();
       final mediaSize = MediaQueryData.fromView(View.of(context)).size;
       // On windows, wndRect is equal to GetWindowRect and mediaSize is equal to GetClientRect.
       // https://stackoverflow.com/a/7561083
@@ -861,7 +859,7 @@ class ScreenAdjustor {
       if ((top + height) > frameRect.bottom) {
         top = frameRect.bottom - height;
       }
-      await WindowController.fromWindowId(windowId)
+      await WindowController.fromWindowId(kWindowId!)
           .setFrame(Rect.fromLTWH(left, top, width, height));
       stateGlobal.setMaximized(false);
     }
@@ -951,7 +949,6 @@ class _DisplayMenuState extends State<_DisplayMenu> {
     cbExitFullscreen: () => widget.setFullscreen(false),
   );
 
-  int get windowId => stateGlobal.windowId;
   Map<String, bool> get perms => widget.ffi.ffiModel.permissions;
   PeerInfo get pi => widget.ffi.ffiModel.pi;
   FfiModel get ffiModel => widget.ffi.ffiModel;

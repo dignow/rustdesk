@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_hbb/window_info.dart';
 
 import '../consts.dart';
 
 enum SvcStatus { notReady, connecting, ready }
 
 class StateGlobal {
-  int _windowId = -1;
   bool grabKeyboard = false;
   final RxBool _fullscreen = false.obs;
   bool _isMinimized = false;
@@ -25,7 +25,6 @@ class StateGlobal {
   // Use for desktop -> remote toolbar -> resolution
   final Map<String, Map<int, String?>> _lastResolutionGroupValues = {};
 
-  int get windowId => _windowId;
   RxBool get fullscreen => _fullscreen;
   bool get isMinimized => _isMinimized;
   double get tabBarHeight => fullscreen.isTrue ? 0 : kDesktopRemoteTabBarHeight;
@@ -49,7 +48,6 @@ class StateGlobal {
     return _lastResolutionGroupValues[peerId]?[currentDisplay];
   }
 
-  setWindowId(int id) => _windowId = id;
   setMaximized(bool v) {
     if (!_fullscreen.isTrue) {
       if (isMaximized.value != v) {
@@ -65,6 +63,7 @@ class StateGlobal {
 
   setMinimized(bool v) => _isMinimized = v;
 
+  // setFullscreen should only be called by the kWindowId thread.
   setFullscreen(bool v, {bool procWnd = true}) {
     if (_fullscreen.value != v) {
       _fullscreen.value = v;
@@ -78,7 +77,7 @@ class StateGlobal {
           "fullscreen: $fullscreen, resizeEdgeSize: ${_resizeEdgeSize.value}");
       _windowBorderWidth.value = fullscreen.isTrue ? 0 : kWindowBorderWidth;
       if (procWnd) {
-        final wc = WindowController.fromWindowId(windowId);
+        final wc = WindowController.fromWindowId(kWindowId!);
         wc.setFullscreen(_fullscreen.isTrue).then((_) {
           // https://github.com/leanflutter/window_manager/issues/131#issuecomment-1111587982
           if (Platform.isWindows && !v) {

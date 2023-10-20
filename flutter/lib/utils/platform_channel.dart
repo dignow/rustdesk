@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_hbb/main.dart';
+import 'package:flutter_hbb/window_info.dart';
 
 enum SystemWindowTheme { light, dark }
 

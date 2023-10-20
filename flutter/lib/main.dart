@@ -13,7 +13,6 @@ import 'package:flutter_hbb/desktop/screen/desktop_file_transfer_screen.dart';
 import 'package:flutter_hbb/desktop/screen/desktop_port_forward_screen.dart';
 import 'package:flutter_hbb/desktop/screen/desktop_remote_screen.dart';
 import 'package:flutter_hbb/desktop/widgets/refresh_wrapper.dart';
-import 'package:flutter_hbb/models/state_model.dart';
 import 'package:flutter_hbb/plugin/handlers.dart';
 import 'package:flutter_hbb/utils/multi_window_manager.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,23 +20,17 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 
-// import 'package:window_manager/window_manager.dart';
-
 import 'common.dart';
 import 'consts.dart';
 import 'mobile/pages/home_page.dart';
 import 'mobile/pages/server_page.dart';
 import 'models/platform_model.dart';
-
-/// Basic window and launch properties.
-int? kWindowId;
-WindowType? kWindowType;
-late List<String> kBootArgs;
+import 'window_info.dart';
 
 Future<void> main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   debugPrint("launch args: $args");
-  kBootArgs = List.from(args);
+  List<String> cmdArgs = List.from(args);
 
   if (!isDesktop) {
     runMobileApp();
@@ -46,7 +39,6 @@ Future<void> main(List<String> args) async {
   // main window
   if (args.isNotEmpty && args.first == 'multi_window') {
     kWindowId = int.parse(args[1]);
-    stateGlobal.setWindowId(kWindowId!);
     if (!Platform.isMacOS) {
       WindowController.fromWindowId(kWindowId!).showTitleBar(false);
     }
@@ -98,7 +90,7 @@ Future<void> main(List<String> args) async {
     desktopType = DesktopType.main;
     await windowManager.ensureInitialized();
     windowManager.setPreventClose(true);
-    runMainApp(true);
+    runMainApp(cmdArgs, true);
   }
 }
 
@@ -115,7 +107,7 @@ Future<void> initEnv(String appType) async {
   updateSystemWindowTheme();
 }
 
-void runMainApp(bool startService) async {
+void runMainApp(List<String> cmdArgs, bool startService) async {
   // register uni links
   await initEnv(kAppTypeMain);
   // trigger connection status updater
@@ -136,7 +128,7 @@ void runMainApp(bool startService) async {
     // Check the startup argument, if we successfully handle the argument, we keep the main window hidden.
     final handledByUniLinks = await initUniLinks();
     debugPrint("handled by uni links: $handledByUniLinks");
-    if (handledByUniLinks || handleUriLink(cmdArgs: kBootArgs)) {
+    if (handledByUniLinks || handleUriLink(cmdArgs: cmdArgs)) {
       windowManager.hide();
     } else {
       windowManager.show();

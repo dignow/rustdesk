@@ -14,7 +14,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_hbb/common/formatter/id_formatter.dart';
 import 'package:flutter_hbb/desktop/widgets/refresh_wrapper.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
-import 'package:flutter_hbb/main.dart';
+import 'package:flutter_hbb/window_info.dart';
 import 'package:flutter_hbb/models/desktop_render_texture.dart';
 import 'package:flutter_hbb/models/peer_model.dart';
 import 'package:flutter_hbb/models/state_model.dart';
@@ -2695,7 +2695,7 @@ openMonitorInTheSameTab(int i, FFI ffi, PeerInfo pi) {
 openMonitorInNewTabOrWindow(int i, String peerId, PeerInfo pi,
     {Rect? screenRect}) {
   final args = {
-    'window_id': stateGlobal.windowId,
+    'window_id': kWindowId!,
     'peer_id': peerId,
     'display': i,
     'display_count': pi.displays.length,
@@ -2716,7 +2716,7 @@ tryMoveToScreenAndSetFullscreen(Rect? screenRect) async {
   if (screenRect == null) {
     return;
   }
-  final wc = WindowController.fromWindowId(stateGlobal.windowId);
+  final wc = WindowController.fromWindowId(kWindowId!);
   final curFrame = await wc.getFrame();
   final frame =
       Rect.fromLTWH(screenRect.left + 30, screenRect.top + 30, 600, 400);

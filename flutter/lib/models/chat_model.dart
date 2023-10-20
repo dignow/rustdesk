@@ -5,11 +5,11 @@ import 'package:desktop_multi_window/desktop_multi_window.dart';
 import 'package:draggable_float_widget/draggable_float_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hbb/window_info.dart';
 import 'package:flutter_hbb/common/shared_state.dart';
 import 'package:flutter_hbb/desktop/widgets/tabbar_widget.dart';
 import 'package:flutter_hbb/mobile/pages/home_page.dart';
 import 'package:flutter_hbb/models/platform_model.dart';
-import 'package:flutter_hbb/models/state_model.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
 import 'package:window_manager/window_manager.dart';
@@ -379,9 +379,8 @@ class ChatModel with ChangeNotifier {
               index >= 0 && tabController.state.value.selected != index;
           // minisized: top and switch tab
           // not minisized: add count
-          if (await WindowController.fromWindowId(stateGlobal.windowId)
-              .isMinimized()) {
-            windowOnTop(stateGlobal.windowId);
+          if (await WindowController.fromWindowId(kWindowId!).isMinimized()) {
+            windowOnTop(kWindowId!);
             if (notSelected) {
               tabController.jumpTo(index);
             }
