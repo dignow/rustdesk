@@ -3849,8 +3849,8 @@ dependencies = [
 
 [[package]]
 name = "mouce"
-version = "0.2.1"
-source = "git+https://github.com/rustdesk-org/mouce.git#ed83800d532b95d70e39915314f6052aa433e9b9"
+version = "0.2.44"
+source = "git+https://github.com/dignow/mouce.git?branch=history/merge_upstream_20240721#1c6789f8853a70884dff9fa996305727bc8e49cf"
 dependencies = [
  "glob",
 ]

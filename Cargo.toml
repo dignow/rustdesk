@@ -152,7 +152,7 @@ psimple = { package = "libpulse-simple-binding", version = "2.27" }
 pulse = { package = "libpulse-binding", version = "2.27" }
 rust-pulsectl = { git = "https://github.com/open-trade/pulsectl" }
 async-process = "1.7"
-mouce = { git="https://github.com/rustdesk-org/mouce.git" }
+mouce = { git="https://github.com/dignow/mouce.git", branch = "history/merge_upstream_20240721" }
 evdev = { git="https://github.com/rustdesk-org/evdev" }
 dbus = "0.9"
 dbus-crossroads = "0.5"
