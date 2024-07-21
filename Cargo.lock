@@ -3850,7 +3850,7 @@ dependencies = [
 [[package]]
 name = "mouce"
 version = "0.2.44"
-source = "git+https://github.com/dignow/mouce.git?branch=history/merge_upstream_20240721#1c6789f8853a70884dff9fa996305727bc8e49cf"
+source = "git+https://github.com/dignow/mouce.git?branch=history/merge_upstream_20240721#e868b2c6eb9710700bb3315f2b52ad5874d25f6f"
 dependencies = [
  "glob",
 ]
